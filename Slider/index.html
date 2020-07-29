@@ -246,17 +246,17 @@
         var tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var tiles = L.tileLayer(tileUrl, {attribution});
         tiles.addTo(mymap);
-        //Need jquery for this to hapen
-        $(document).ready(function(){
-            // loading GeoJSON file - Here my html and GHA.geojson file resides in same folder
+        $("#map").click(function(){
+            console.log("here");
+            // loading GeoJSON file
             $.getJSON("https://www.geoboundaries.org/data/geoBoundaries-3_0_0/AFG/ADM0/geoBoundaries-3_0_0-AFG-ADM0.geojson",function(data){
             // add GeoJSON layer to the map once the file is loaded
             var datalayer = L.geoJson(data).addTo(mymap);
             //Zoom to layer
             mymap.fitBounds(datalayer.getBounds());
             });
+
         });
-        
         
     </script>
 </body>
