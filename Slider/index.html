@@ -246,16 +246,27 @@
         var tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var tiles = L.tileLayer(tileUrl, {attribution});
         tiles.addTo(mymap);
-        $("#map").click(function(){
-            console.log("here");
-            // loading GeoJSON file
-            $.getJSON("https://www.geoboundaries.org/data/geoBoundaries-3_0_0/AFG/ADM0/geoBoundaries-3_0_0-AFG-ADM0.geojson",function(data){
-            // add GeoJSON layer to the map once the file is loaded
-            var datalayer = L.geoJson(data).addTo(mymap);
-            //Zoom to layer
-            mymap.fitBounds(datalayer.getBounds());
+        $(document).ready(function(){
+            var url;
+            $('select[name="ISO"]').change(function(){
+                url = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
+                    + $("#ISO").val() + "-" + $("#ADM").val() + ".geojson";
             });
 
+            $('select[name="ADM"]').change(function(){
+                url = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
+                    + $("#ISO").val() + "-" + $("#ADM").val() + ".geojson";
+            });
+            
+            $("#map").click(function(){
+                // loading GeoJSON file
+                $.getJSON(url,function(data){
+                // add GeoJSON layer to the map once the file is loaded
+                var datalayer = L.geoJson(data).addTo(mymap);
+                //Zoom to layer
+                mymap.fitBounds(datalayer.getBounds());
+                });
+            });
         });
         
     </script>
