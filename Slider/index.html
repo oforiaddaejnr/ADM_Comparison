@@ -234,6 +234,7 @@
             <option value="ZWE">ZWE</option>
         </select>
         <select id = "ADM" name="ADM" size=1>
+            <option value="ADM0">ADM0</option>
             <option value="ADM1">ADM1</option>
             <option value="ADM2">ADM2</option>
         </select>
@@ -281,7 +282,7 @@
             function map(data){
                 var datalayer = L.geoJson(data).addTo(mymap);
                 //Zoom to layer
-                mymap.fitBounds(datalayer.getBounds());
+                mymap.fitBounds(datalayer.getBounds(), 50);
                 //store reference to plotted geojson
                 arr[0] = datalayer;
             }
