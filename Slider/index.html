@@ -20,6 +20,8 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
+   <script src="leaflet-side-by-side.js"></script>
+
    <style>
        #mapid { height: 500px; width: 600px; }
    </style>
@@ -243,10 +245,15 @@
     
     <script>
         var mymap = L.map('mapid').setView([0, 0], 1);
-        var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-        var tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var tiles = L.tileLayer(tileUrl, {attribution});
-        tiles.addTo(mymap);
+        //leftlayer or map
+        var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+        var tileUrl1 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var tiles1 = L.tileLayer(tileUrl1, {attribution: attribution1}).addTo(mymap);
+        //rightlayer or map
+        var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+        var tileUrl2 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var tiles2 = L.tileLayer(tileUrl2, {attribution: attribution2}).addTo(mymap);
+        L.control.sideBySide(tiles1, tiles2).addTo(mymap);
         $(document).ready(function(){
             var url;
             var arr = [null];
@@ -261,7 +268,7 @@
             });
             
             $("#map").click(function(){
-                // loading GeoJSON file unto map
+                // loading GeoJSON file unto mapL.map('mapid').setView([0, 0], 1);
                 $.getJSON(url,function(data){
                     //if there is no stored reference to a previous 
                     //plotted geojson, map
