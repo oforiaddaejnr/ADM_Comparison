@@ -248,6 +248,7 @@
         tiles.addTo(mymap);
         $(document).ready(function(){
             var url;
+            var arr = [null];
             $('select[name="ISO"]').change(function(){
                 url = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
                     + $("#ISO").val() + "-" + $("#ADM").val() + ".geojson";
@@ -259,14 +260,31 @@
             });
             
             $("#map").click(function(){
-                // loading GeoJSON file
+                // loading GeoJSON file unto map
                 $.getJSON(url,function(data){
-                // add GeoJSON layer to the map once the file is loaded
+                    //if there is no stored reference to a previous 
+                    //plotted geojson, map
+                    if(arr[0] === null){
+                      map(data);
+                    }
+                    //else if there is a stored reference to a previous
+                    //geojson, remove it before plotting the next one
+                    else{
+                        var removeLayer = arr[0].remove();
+                        arr[0] = null
+                        map(data);
+                    }
+                });
+            });
+
+            //function to plot geojson file
+            function map(data){
                 var datalayer = L.geoJson(data).addTo(mymap);
                 //Zoom to layer
                 mymap.fitBounds(datalayer.getBounds());
-                });
-            });
+                //store reference to plotted geojson
+                arr[0] = datalayer;
+            }
         });
         
     </script>
