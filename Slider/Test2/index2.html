@@ -75,6 +75,7 @@ function parse_query_string(query) {
 var query = window.location.search.substring(1);
 var qs = parse_query_string(query);
 console.log(qs.ADM)
+console.log(qs.ISO)
 function initComparisons() {
   var x, i;
   /*find all elements with an "overlay" class:*/
@@ -192,14 +193,14 @@ var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
 
 /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
 initComparisons();
-$.getJSON("https://www.geoboundaries.org/data/geoBoundaries-3_0_0/AFG/"+ qs.ADM+"/geoBoundaries-3_0_0-AFG-"+qs.ADM+".geojson",function(data){
+$.getJSON("https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+qs.ISO+"/"+ qs.ADM+"/geoBoundaries-3_0_0-"+qs.ISO+"-"+qs.ADM+".geojson",function(data){
     // add GeoJSON layer to the map once the file is loaded
     var datalayer = L.geoJson(data).addTo(mymap1);
     //Zoom to layer
     mymap1.fitBounds(datalayer.getBounds());
 });
 
-$.getJSON("https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/AFG/"+qs.ADM+"/geoBoundariesSSCU-3_0_0-AFG-"+qs.ADM+".geojson",function(data){
+$.getJSON("https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/"+qs.ISO+"/"+qs.ADM+"/geoBoundariesSSCU-3_0_0-"+qs.ISO+"-"+qs.ADM+".geojson",function(data){
     // add GeoJSON layer to the map once the file is loaded
     var datalayer = L.geoJson(data).addTo(mymap2);
     //Zoom to layer
