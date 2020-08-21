@@ -20,10 +20,10 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
-   <script src="leaflet-side-by-side.js"></script>
+   <script src="leaflet-side-by-side copy.js"></script>
 
    <style>
-       #mapid { height: 500px; width: 600px; }
+        #mapid { height: 400px; width: 600px; }
    </style>
 
 </head>
@@ -243,57 +243,102 @@
         <input type="button" id="map" value="Compare" />
     </div>
     
+
+    
     <script>
         var mymap = L.map('mapid').setView([0, 0], 1);
+
+        var leftPane = mymap.createPane('left');
+        var rightPane = mymap.createPane('right');
+
+        leftPane.style.zIndex = 230;
+        rightPane.style.zIndex = 220;
+
         //leftlayer or map
         var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
         var tileUrl1 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var tiles1 = L.tileLayer(tileUrl1, {attribution: attribution1}).addTo(mymap);
+        // added left pane
+        var tiles1 = L.tileLayer(tileUrl1, {pane: 'left', attribution: attribution1}).addTo(mymap);
+
         //rightlayer or map
         var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
         var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
-        var tiles2 = L.tileLayer(tileUrl2, {attribution: attribution2}).addTo(mymap);
+        // added right pane
+        var tiles2 = L.tileLayer(tileUrl2, {pane: 'right', attribution: attribution2}).addTo(mymap);
         L.control.sideBySide(tiles1, tiles2).addTo(mymap);
         $(document).ready(function(){
-            var url;
-            var arr = [null];
+            var high_res;
+            var low_res;
+            var high_arr = [null];
+            var low_arr = [null];
             $('select[name="ISO"]').change(function(){
-                url = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
+                high_res = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
                     + $("#ISO").val() + "-" + $("#ADM").val() + ".geojson";
+                low_res = "https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/"+ $("#ISO").val() + "/"+$("#ADM").val()+"/geoBoundariesSSCU-3_0_0-"+ $("#ISO").val()
+                 + "-"+$("#ADM").val()+".geojson"
             });
 
             $('select[name="ADM"]').change(function(){
-                url = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
+                high_res = "https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+ $("#ISO").val() + "/" + $("#ADM").val() + "/geoBoundaries-3_0_0-"
                     + $("#ISO").val() + "-" + $("#ADM").val() + ".geojson";
+                low_res = "https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/"+ $("#ISO").val() + "/"+$("#ADM").val()+"/geoBoundariesSSCU-3_0_0-"+ $("#ISO").val()
+                 + "-"+$("#ADM").val()+".geojson"
             });
             
             $("#map").click(function(){
                 // loading GeoJSON file unto mapL.map('mapid').setView([0, 0], 1);
-                $.getJSON(url,function(data){
+               /* $.getJSON(high_res,function(data){
                     //if there is no stored reference to a previous 
                     //plotted geojson, map
-                    if(arr[0] === null){
-                      map(data);
+                    if(high_arr[0] === null){
+                    mapHighRes(data);
                     }
                     //else if there is a stored reference to a previous
                     //geojson, remove it before plotting the next one
                     else{
-                        var removeLayer = arr[0].remove();
-                        arr[0] = null
-                        map(data);
+                        var removeLayer = high_arr[0].remove();
+                        high_arr[0] = null
+                        mapHighRes(data);
+                    }
+                }); */
+                $.getJSON(low_res,function(data){
+                    //if there is no stored reference to a previous 
+                    //plotted geojson, map
+                    if(low_arr[0] === null){
+                    mapLowRes(data);
+                    }
+                    //else if there is a stored reference to a previous
+                    //geojson, remove it before plotting the next one
+                    else{
+                        var removeLayer = low_arr[0].remove();
+                        low_arr[0] = null
+                        mapLowRes(data);
                     }
                 });
             });
 
-            //function to plot geojson file
-            function map(data){
-                var datalayer = L.geoJson(data).addTo(mymap);
+            /*//function to plot geojson file
+            function mapHighRes(data){
+                // added left pane
+                var datalayer = L.geoJson(data, {pane: 'left'}).addTo(mymap);
                 //Zoom to layer
                 mymap.fitBounds(datalayer.getBounds());
                 //store reference to plotted geojson
-                arr[0] = datalayer;
+                high_arr[0] = datalayer;
+            }*/
+
+            //function to plot geojson file
+            function mapLowRes(data){
+                // added left pane
+                var datalayer = L.geoJson(data, {pane: 'right'}).addTo(mymap);
+                //Zoom to layer
+                mymap.fitBounds(datalayer.getBounds());
+                //store reference to plotted geojson
+                high_arr[0] = datalayer;
             }
         });
+
+
         
     </script>
 </body>

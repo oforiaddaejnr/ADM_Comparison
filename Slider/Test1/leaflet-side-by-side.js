@@ -6,6 +6,11 @@ require('./range.css')
 
 var mapWasDragEnabled
 var mapWasTapEnabled
+/*var rightMap;
+var leftMap;
+var rightGeojson;
+var leftGeojson;*/
+
 
 // Leaflet v0.7 backwards compatibility
 function on (el, types, fn, context) {
@@ -58,6 +63,7 @@ L.Control.SideBySide = L.Control.extend({
   initialize: function (leftLayers, rightLayers, options) {
     this.setLeftLayers(leftLayers)
     this.setRightLayers(rightLayers)
+    //this._setDiffMaps()
     L.setOptions(this, options)
   },
 
@@ -119,6 +125,15 @@ L.Control.SideBySide = L.Control.extend({
     this._updateLayers()
     return this
   },
+
+  /*_setDiffMaps: function () {
+    leftMap = this._leftLayers
+    console.log(leftMap)
+    leftGeojson = L.geoJSON().addTo(leftMap);
+    rightMap = this._rightLayers
+    rightGeojson = L.geoJSON().addTo(rightMap);
+
+  },*/
 
   _updateClip: function () {
     var map = this._map
