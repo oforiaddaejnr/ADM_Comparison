@@ -145,8 +145,3 @@ $.getJSON("https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/"+qs.ISO+"
 // L.Map.Sync.js library
 mymap1.sync(mymap2);
 mymap2.sync(mymap1);
-var container = this._container = L.DomUtil.create('div', 'leaflet-sbs', mymap1._controlContainer)
-
-this._divider = L.DomUtil.create('div', 'leaflet-sbs-divider', container)
-var range = this._range = L.DomUtil.create('input', 'leaflet-sbs-range', container)
-var css = ".leaflet-sbs-range {\r\n    position: absolute;\r\n    top: 50%;\r\n    width: 100%;\r\n    z-index: 999;\r\n}\r\n.leaflet-sbs-divider {\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 50%;\r\n    margin-left: -2px;\r\n    width: 4px;\r\n    background-color: #fff;\r\n    pointer-events: none;\r\n    z-index: 999;\r\n}\r\n";
