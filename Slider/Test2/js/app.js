@@ -22,8 +22,8 @@ function parse_query_string(query) {
   }
   var query = window.location.search.substring(1);
   var qs = parse_query_string(query);
-  console.log(qs.ADM)
-  console.log(qs.ISO)
+  //console.log(qs.ADM)
+  //console.log(qs.ISO)
   function initComparisons() {
     var x, i;
     /*find all elements with an "overlay" class:*/
@@ -111,7 +111,7 @@ function parse_query_string(query) {
 var mymap1 = L.map('map1').setView([0, 0], 1);
 var mymap2 = L.map('map2').setView([0, 0], 1);
         
-//left map
+//right map
 //var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var tileUrl1 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 var tiles1 = L.tileLayer(tileUrl1).addTo(mymap1);
@@ -121,7 +121,7 @@ var zoomOptions = {
 var zoom = L.control.zoom(zoomOptions);   // Creating zoom control
 zoom.addTo(mymap1);   // Adding zoom control to the map
 
-//right map
+//left map
 //var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
 var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
