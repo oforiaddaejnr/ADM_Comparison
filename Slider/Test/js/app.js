@@ -112,6 +112,7 @@ var mymap1 = L.map('map1').setView([0, 0], 1);
 var mymap2 = L.map('map2').setView([0, 0], 1);
         
 //right map
+//GeoBoundaries
 //var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var tileUrl1 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 var tiles1 = L.tileLayer(tileUrl1).addTo(mymap1);
@@ -121,7 +122,8 @@ var zoomOptions = {
 var zoom = L.control.zoom(zoomOptions);   // Creating zoom control
 zoom.addTo(mymap1);   // Adding zoom control to the map
 
-//left map
+//left map 
+//Natural Earth
 //var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
 var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
@@ -135,7 +137,9 @@ $.getJSON("https://www.geoboundaries.org/data/geoBoundaries-3_0_0/"+qs.ISO+"/"+ 
     mymap1.fitBounds(datalayer.getBounds());
 });
 
-$.getJSON("https://www.geoboundaries.org/data/geoBoundariesSSCU-3_0_0/"+qs.ISO+"/"+qs.ADM+"/geoBoundariesSSCU-3_0_0-"+qs.ISO+"-"+qs.ADM+".geojson",function(data){
+$.getJSON("Natty_Earth_GeoJson_From_GitHub/natty_earth_countries_geojson/"
+          +qs.ISO+"/"+qs.ADM+"/"+qs.ISO+".geojson",
+          function(data){
     // add GeoJSON layer to the map once the file is loaded
     var datalayer = L.geoJson(data).addTo(mymap2);
     //Zoom to layer
