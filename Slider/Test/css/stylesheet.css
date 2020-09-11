@@ -17,6 +17,7 @@
     display: relative;
     vertical-align: bottom;
     z-index: 5;
+    
 }
 
 .img-comp-slider {
@@ -24,9 +25,16 @@
     z-index: 10;
     cursor: ew-resize;
     /*set the appearance of the slider:*/
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background-color: #2196F3;
     opacity: 6.0;
     border-radius: 50%;
+}
+
+.img-comp-overlay{
+    position: absolute;
+    border-right: 5px solid #5f656d; /* Border on the left */
+    width: 2px; /* Width instead of height */
+    
 }

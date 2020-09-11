@@ -124,8 +124,8 @@ zoom.addTo(mymap1);   // Adding zoom control to the map
 
 //left map 
 //Natural Earth
-//var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
+var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+var tileUrl2 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
 
 /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
