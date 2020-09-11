@@ -22,6 +22,11 @@ function parse_query_string(query) {
   }
   var query = window.location.search.substring(1);
   var qs = parse_query_string(query);
+  //Default country to map upon start
+  if(Object.keys(qs).length === 1){
+    qs.ADM = "ADM1"
+    qs.ISO = "GHA"
+  }
   //console.log(qs.ADM)
   //console.log(qs.ISO)
   function initComparisons() {
