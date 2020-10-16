@@ -115,11 +115,29 @@ function parse_query_string(query) {
 // BOTTOM SCRIPT TAG
 var mymap1 = L.map('map1').setView([0, 0], 1);
 var mymap2 = L.map('map2').setView([0, 0], 1);
+
+//retrieve key for selected map in drop down menu
+selectedTile = $("#Maps").val();
+
+//dictionar for various maps and their tile map url
+var dict = {
+  "Stamen WaterColor" :'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png',
+  "OpenStreet Map" : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  "Stamen Toner" : 'http://tile.stamen.com/toner/{z}/{x}/{y}.png',
+  "Stamen Terrain": 'http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg', 
+  "OSM Black and White": 'http://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', 
+  "Esri Imagery": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  "Esri Streets": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+  "Esri Topo": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',   
+  "Google Satelitte": 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+  "Google Streets": 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', 
+  "Carto Positron": 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+};
         
 //right map
 //GeoBoundaries
 //var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl1 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
+var tileUrl1 = dict[selectedTile];
 var tiles1 = L.tileLayer(tileUrl1).addTo(mymap1);
 var zoomOptions = {
     position: 'topright'
@@ -130,7 +148,7 @@ zoom.addTo(mymap1);   // Adding zoom control to the map
 //left map 
 //Natural Earth
 //var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
+var tileUrl2 = dict[selectedTile];
 var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
 
 /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
@@ -161,23 +179,33 @@ const arr = [null, null];
 $(document).ready(function(){
   var adm;
   var iso;
+  var selectedTile;
   $('select[name="ISO"]').change(function(){
       iso = "ISO="+$("#ISO").val();
-      arr[0] = iso;
-      arr[1] = "ADM="+document.getElementById("ADM").value;
+      adm = "ADM="+$("#ADM").val();
+      selectedTile = $("#Maps").val();
+  
   });
 
   $('select[name="ADM"]').change(function(){
       adm = "ADM="+$("#ADM").val();
-      arr[0] = "ISO="+document.getElementById("ISO").value;
-      arr[1] = adm;
+      iso = "ISO="+$("#ISO").val();
+      selectedTile = $("#Maps").val(); 
   });
+
+  $('select[name="MapTiles"]').change(function(){
+    adm = "ADM="+$("#ADM").val();
+    iso = "ISO="+$("#ISO").val();
+    selectedTile = $("#Maps").val();
+
+});
+
   
   document.getElementById("ADM").value=qs.ADM;
   $("#compare").click(function(){
       // replace url in address bar
       const stateObj = { id: 'geo' };
-      window.history.replaceState(stateObj, '', "?"+arr[1]+"&"+arr[0]); 
+      window.history.replaceState(stateObj, '', "?"+adm+"&"+iso); 
       location.reload();
   });
 });
