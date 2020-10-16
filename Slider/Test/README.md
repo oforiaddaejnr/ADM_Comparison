@@ -1,4 +1,4 @@
-# Test2
+# Test
 
 This provides the user with 2 independent maps side by side and a slider to compare both -- though the slider is somehow hidden for some reason.
 For now if the user wants to plot on either map, they have to manually mess with the url. For example if I wanted to plot Ghana with an ADM2,
