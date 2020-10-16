@@ -24,8 +24,8 @@ function parse_query_string(query) {
   var qs = parse_query_string(query);
   //Default country to map upon start
   if(Object.keys(qs).length === 1){
-    qs.ADM = "ADM1"
-    qs.ISO = "GHA"
+    qs.ADM = "ADM0"
+    qs.ISO = "AFG"
   }
   //console.log(qs.ADM)
   //console.log(qs.ISO)
@@ -119,7 +119,7 @@ var mymap2 = L.map('map2').setView([0, 0], 1);
 //right map
 //GeoBoundaries
 //var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl1 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var tileUrl1 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
 var tiles1 = L.tileLayer(tileUrl1).addTo(mymap1);
 var zoomOptions = {
     position: 'topright'
@@ -129,8 +129,8 @@ zoom.addTo(mymap1);   // Adding zoom control to the map
 
 //left map 
 //Natural Earth
-var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl2 = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+//var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+var tileUrl2 = 'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png';
 var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
 
 /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
@@ -154,3 +154,31 @@ $.getJSON("Natty_Earth_GeoJson_From_GitHub/natty_earth_countries_geojson/"
 // L.Map.Sync.js library
 mymap1.sync(mymap2);
 mymap2.sync(mymap1);
+
+const arr = [null, null];
+
+//fix
+$(document).ready(function(){
+  var adm;
+  var iso;
+  $('select[name="ISO"]').change(function(){
+      iso = "ISO="+$("#ISO").val();
+      arr[0] = iso;
+      arr[1] = "ADM="+document.getElementById("ADM").value;
+  });
+
+  $('select[name="ADM"]').change(function(){
+      adm = "ADM="+$("#ADM").val();
+      arr[0] = "ISO="+document.getElementById("ISO").value;
+      arr[1] = adm;
+  });
+  
+  document.getElementById("ADM").value=qs.ADM;
+  $("#compare").click(function(){
+      // replace url in address bar
+      const stateObj = { id: 'geo' };
+      window.history.replaceState(stateObj, '', "?"+arr[1]+"&"+arr[0]); 
+      location.reload();
+  });
+});
+
