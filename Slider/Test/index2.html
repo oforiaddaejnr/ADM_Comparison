@@ -20,7 +20,7 @@ crossorigin=""></script>
 </head>
 <body>
 
-<h1>Compare Two Maps</h1>
+<h1>Comparing Geoboundaries ADMs to Other Organizations ADMS</h1>
 
 <p>Click and slide the blue slider to compare two maps:</p>
 
@@ -29,6 +29,7 @@ crossorigin=""></script>
   <div class="img-comp-img img-comp-overlay" id="map2"></div>
 </div>
 <div id="options">
+  <b>ISO:</b> 
   <select id = "ISO" name="ISO" size=1>
       <option value="AFG">AFG</option>
       <option value="AGO">AGO</option>
@@ -231,15 +232,31 @@ crossorigin=""></script>
       <option value="ZMB">ZMB</option>
       <option value="ZWE">ZWE</option>
   </select>
+  <b>ADM:</b> 
   <select id = "ADM" name="ADM" value = "placeholder" size=1>
       <option value="ADM0">ADM0</option>
       <option value="ADM1">ADM1</option>
       <option value="ADM2">ADM2</option>
   </select>
+  <b>Compare To:</b> 
   <select id = "Comparison" name="Compare To" size=1>
     <option value="Natural Earth">Natural Earth</option>
   </select>
-    <input type="button" id="compare" value="Compare" />
+  <b>TileLayer:</b> 
+  <select id = "Maps" name="MapTiles" size=1>
+    <option value = "Stamen WaterColor">Stamen WaterColor</option>
+    <option value = "OpenStreet Map">OpenStreet Map</option> 
+    <option value = "Stamen Toner">Stamen Toner (Black&White)</option>
+    <option value = "Stamen Terrain">Stamen Terrain</option>  
+    <option value = "OSM Cycle Map">OSM Cycle Map</option> 
+    <option value = "Esri Imagery">Esri Imagery/Satelitte</option>
+    <option value = "Esri Streets">Esri Streets</option>
+    <option value = "Esri Topo">Esri Topo</option>   
+    <option value = "Google Satelitte">Google Satelitte</option> 
+    <option value = "Google Streets">Google Streets</option> 
+    <option value = "Carto Positron">Carto Positron</option> 
+  </select>
+  <input type="button" id="compare" value="Compare" />
 </div>
 
 <script src="js/app.js"></script>
