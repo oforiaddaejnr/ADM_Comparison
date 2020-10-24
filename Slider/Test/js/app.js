@@ -121,24 +121,42 @@ selectedTile = $("#Maps").val();
 
 //dictionar for various maps and their tile map url
 var dict = {
-  "Stamen WaterColor" :'https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png',
-  "OpenStreet Map" : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  "Stamen Toner" : 'http://tile.stamen.com/toner/{z}/{x}/{y}.png',
-  "Stamen Terrain": 'http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg', 
-  "OSM Black and White": 'http://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', 
-  "Esri Imagery": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  "Esri Streets": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-  "Esri Topo": 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',   
-  "Google Satelitte": 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-  "Google Streets": 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', 
-  "Carto Positron": 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+  "Stamen WaterColor" : ['https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png', 
+  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'],
+
+  "OpenStreet Map" : ['https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+  'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'],
+
+  "Stamen Toner" : ['http://tile.stamen.com/toner/{z}/{x}/{y}.png', 
+  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'],
+  
+  "Stamen Terrain": ['http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg',
+  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'], 
+  
+  "OSM Black and White": ['http://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', 
+  'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'], 
+
+
+  "Esri Imagery": ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+  'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'],
+
+  "Esri Streets": ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+  'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'],
+
+  "Esri Topo": ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', 
+  'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'], 
+ 
+  "Carto Positron": ['https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', 
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>']
 };
         
+
+var tileUrl = dict[selectedTile][0];
+var tile_attribution = dict[selectedTile][1];
+
 //right map
 //GeoBoundaries
-//var attribution1 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl1 = dict[selectedTile];
-var tiles1 = L.tileLayer(tileUrl1).addTo(mymap1);
+var tiles1 = L.tileLayer(tileUrl, {attribution: tile_attribution}).addTo(mymap1);
 var zoomOptions = {
     position: 'topright'
 };
@@ -147,9 +165,7 @@ zoom.addTo(mymap1);   // Adding zoom control to the map
 
 //left map 
 //Natural Earth
-//var attribution2 = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var tileUrl2 = dict[selectedTile];
-var tiles2 = L.tileLayer(tileUrl2).addTo(mymap2);
+var tiles2 = L.tileLayer(tileUrl, {attribution: tile_attribution}).addTo(mymap2);
 
 /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
 initComparisons();
